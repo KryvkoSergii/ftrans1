@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
-    <meta http-equiv="Content-Type" Content="text/html; Charset=Windows-1251">
+    <title>Загрузка файлов об авариях и списков на обзвон</title>
+    <meta http-equiv="Content-Type" Content="text/html; Charset=UTF8">
+    <script src="recourses/jquery.min.js"></script>
+    <script src="recourses/bootstrap.min.js"></script>
+    <script src="recourses/datepicher.min.js"></script>
+    <link href="recourses/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="recourses/application.css" rel="stylesheet" type="text/css">
+    <link href="recourses/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+    <script src="recourses/bootstrap-dialog.min.js"></script>
 </head>
 <body>
 
+<div class="container">
+    <form method="post" action="/ftrans/sendzip" enctype="multipart/form-data">
 
-<form method="post" action="/ftrans/sendzip" enctype="multipart/form-data">
-    <input type="file" name="file1"/><br/>
-    <input type="file" name="file2"/><br/>
-    <input type="file" name="file3"/><br/>
-    <p>Path to folder (example: d://folder//)</p>
-    <input type="text" name="pathval"/><br/><br>
-    <input type="submit" value="submit">
-</form>
+        <table>
+            <tr>
+                <td><h1>Сообщение об аварии:</h1></td>
+                <td></td>
+            </tr>
 
+            <tr>
+                <td>Прикрепить файл:</td>
+                <td>Путь к директории (пример: d://folder//):</td>
+            </tr>
+            <tr>
+                <td><input type="file" name="file1"/></td>
+                <td>
+                    <div class="form-group"><input type="text" name="pathval1" placeholder="пример: d://folder//"/>
+                    </div>
+                </td>
+            </tr>
+
+            <tr><br/></tr>
+            <tr><br/></tr>
+
+            <tr>
+                <td><h1>Список на обзвон (Outbound):</h1></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Прикрепить файл:</td>
+                <td>Путь к директории (пример: d://folder//):</td>
+            </tr>
+            <tr>
+                <td><input type="file" name="file2"/></td>
+                <td>
+                    <div class="form-group"><input type="text" name="pathval2" placeholder="пример: d://folder//"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-group modal-footer">
+            <input class="btn btn-primary" type="submit" value="Отправить">
+        </div>
+
+    </form>
+</div>
 </body>
 </html>

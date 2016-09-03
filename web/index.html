@@ -14,11 +14,11 @@
 <body>
 
 <div class="container">
-    <form method="post" action="/ftrans/sendzip" enctype="multipart/form-data">
+    <form name="services" method="post" enctype="multipart/form-data" >
 
         <table>
             <tr>
-                <td><h1>Сообщение об аварии:</h1></td>
+                <td><h3>Сообщение об аварии:</h3></td>
                 <td></td>
             </tr>
 
@@ -35,10 +35,9 @@
             </tr>
 
             <tr><br/></tr>
-            <tr><br/></tr>
 
             <tr>
-                <td><h1>Список на обзвон (Outbound):</h1></td>
+                <td><h3>Список на обзвон (Outbound):</h3></td>
                 <td></td>
             </tr>
 
@@ -56,10 +55,62 @@
         </table>
         <br/>
         <div class="form-group modal-footer">
-            <input class="btn btn-primary" type="submit" value="Отправить">
+            <input class="btn btn-primary" onclick="message()" value="Отправить">
         </div>
-
     </form>
+    <script>
+        var windowAlertDanger = function (message) {
+            BootstrapDialog.show({
+                size: BootstrapDialog.SIZE_SMALL,
+                type: BootstrapDialog.TYPE_DANGER,
+                draggable: true,
+                title: 'Ошибка',
+                message: message,
+                buttons: [{
+                    label: 'Закрыть',
+                    action: function (dialog) {
+//                    location.reload(true);
+                        dialog.close();
+                    }
+                }]
+            });
+        };
+        var windowAlertSuccess = function (message) {
+            BootstrapDialog.show({
+                size: BootstrapDialog.SIZE_SMALL,
+                type: BootstrapDialog.TYPE_SUCCESS,
+                draggable: true,
+                title: 'Уведомление',
+                message: message,
+                buttons: [{
+                    label: 'Закрыть',
+                    action: function (dialog) {
+                        location.reload(true);
+                        dialog.close();
+                    }
+                }]
+            });
+        };
+        // XY
+        var message = function () {
+            var formData = new FormData(document.forms.services);
+            // отослать
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/ftrans/sendzip");
+            xhr.send(formData);
+            xhr.onreadystatechange = function () { // (3)
+                if (xhr.readyState != 4) return;
+                if (xhr.status != 302 && xhr.status != 200) {
+                    var message = "Ошибка импортирования файлов. Код возврата: " + xhr.status
+                    windowAlertDanger(message);
+                } else {
+                    var message = "Файл успешно импортирован"
+                    windowAlertSuccess(message);
+
+                }
+            }
+        }
+    </script>
 </div>
 </body>
 </html>
